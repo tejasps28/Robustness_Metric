@@ -5,3 +5,7 @@
 /data/
 simulatetraj1.txt
 script/__pycache__/eval_robustness.cpython-38.pyc
+test/data/robustness_results.csv
+script/__pycache__/robustness.cpython-38.pyc
+script/__pycache__/robustness.cpython-38.pyc
+script/__pycache__/robustness.cpython-38.pyc

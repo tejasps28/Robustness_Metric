@@ -251,6 +251,7 @@ BOOST_PYTHON_MODULE(RobustMetricLib) {
     using namespace boost::python;
     def("eval_robustness", &eval_robustness);
     def("eval_robustness_batch", &eval_robustness_batch);
+    def("estimate_velo", &estimate_v);
 }
 
 

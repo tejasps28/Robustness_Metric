@@ -20,6 +20,9 @@ class TestCalcFscore(unittest.TestCase):
 
         self.assertAlmostEqual(fscore_trans, 1.0, places=1.0)
         self.assertAlmostEqual(fscore_rot, 1.0, places=1.0)
+    
+    def test_estimate_velocity(self):
+        
 
 if __name__ == '__main__':
     unittest.main()

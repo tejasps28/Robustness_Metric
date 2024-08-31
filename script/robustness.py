@@ -1,4 +1,6 @@
 import torch
+import os
+import csv
 
 class RobustnessMetric:
     def calc_fscore(trans_deriv1, rot_deriv1, trans_deriv2, rot_deriv2, trans_threshold, rot_threshold):
@@ -78,8 +80,7 @@ class RobustnessMetric:
         while threshold <= threshold_end:
             fscore_trans, fscore_rot = RobustnessMetric.calc_fscore(
                 trans_deriv1, rot_deriv1, trans_deriv2, rot_deriv2, threshold, threshold)
-            x_axis_len = torch.exp(torch.tensor(-10.0 * (threshold - threshold_interval * 0.5))) 
-            - torch.exp(torch.tensor(-10.0 * (threshold + threshold_interval * 0.5)))
+            x_axis_len = torch.exp(torch.tensor(-10.0 * (threshold - threshold_interval * 0.5))) - torch.exp(torch.tensor(-10.0 * (threshold + threshold_interval * 0.5)))
             fscore_area_trans += fscore_trans * x_axis_len
             fscore_area_rot += fscore_rot * x_axis_len
             fscore_transes.append(fscore_trans)
@@ -95,3 +96,30 @@ class RobustnessMetric:
             'fscore_area_trans': fscore_area_trans,
             'fscore_area_rot': fscore_area_rot
         }
+
+    def save_results(ref_file, est_file, fscore_trans, fscore_rot, auc_result):
+        ref_dir = os.path.dirname(ref_file)
+        result_file = os.path.join(ref_dir, 'robustness_results.csv')
+
+        with open(result_file, 'w', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            
+            writer.writerow(['Reference', ref_file])
+            writer.writerow(['Estimated', est_file])
+            writer.writerow(['F-score for translation', f'{fscore_trans:.4f}'])
+            writer.writerow(['F-score for rotation', f'{fscore_rot:.4f}'])
+            writer.writerow([])  
+            
+            writer.writerow(['AUC Result'])
+            writer.writerow(['Thresholds', 'F-score (Trans)', 'F-score (Rot)'])
+            
+            for t, ft, fr in zip(auc_result['thresholds'], 
+                                 auc_result['fscore_transes'], 
+                                 auc_result['fscore_rots']):
+                writer.writerow([f'{t:.2f}', f'{ft:.4f}', f'{fr:.4f}'])
+            
+            writer.writerow([])  
+            writer.writerow(['AUC (Trans)', f"{auc_result['fscore_area_trans'].item():.4f}"])
+            writer.writerow(['AUC (Rot)', f"{auc_result['fscore_area_rot'].item():.4f}"])
+
+        print(f"Results saved to: {result_file}")
