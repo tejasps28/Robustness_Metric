@@ -5,7 +5,7 @@ This project evaluates the robustness of trajectories by comparing them using Ro
 
 ### Description
 
-The `eval_robustness.py` calculates translational and rotation robustness metrics under [0,1] threshold
+The `eval_robustness.py` calculates translational and rotation robustness metrics 
 
 Add your process trajectory into `config.conf`
 
