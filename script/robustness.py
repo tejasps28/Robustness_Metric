@@ -196,8 +196,7 @@ class RobustnessMetric:
             writer = csv.writer(csvfile)
             
             writer.writerow(['Estimated File', est_file])
-            writer.writerow([])  # Empty row for separation
-            
+            writer.writerow([])  
             writer.writerow(['Thresholds', 'F-score (Trans)', 'F-score (Rot)'])
             
             for t, ft, fr in zip(auc_result['thresholds'], 
@@ -205,17 +204,44 @@ class RobustnessMetric:
                                 auc_result['fscore_rots']):
                 writer.writerow([f'{t:.3f}', f'{ft:.4f}', f'{fr:.4f}'])
             
-            writer.writerow([])  # Empty row for separation
+            writer.writerow([])  
             writer.writerow(['AUC (Trans)', f"{auc_result['fscore_area_trans'].item():.4f}"])
             writer.writerow(['AUC (Rot)', f"{auc_result['fscore_area_rot'].item():.4f}"])
 
         print(f"Results saved to: {result_file}")
 
-    
-    def calculate_and_plot_rpe(traj_ref, traj_est, pose_relation, delta, delta_unit, all_pairs):
-        est_name = "RPE Test"
-        result = metrics.compute_rpe(traj_ref, traj_est, pose_relation, delta, delta_unit, all_pairs)
+    def plot_robustness_metrics(auc_result, ref_file, est_file):
+        thresholds = auc_result['thresholds']
+        fscore_transes = auc_result['fscore_transes']
+        fscore_rots = auc_result['fscore_rots']
         
-
-        return result
+        plt.figure(figsize=(10, 6))
+        
+        plt.plot(thresholds, fscore_transes, label=f'Translation $R_p$ [AUC: {auc_result["fscore_area_trans"]:.3f}]', color='#1f77b4', linestyle='-', linewidth=2)
+        plt.plot(thresholds, fscore_rots, label=f'Rotation $R_r$ [AUC: {auc_result["fscore_area_rot"]:.3f}]', color='#ff7f0e', linestyle='-', linewidth=2)
+        
+        plt.xlabel('Threshold', fontsize=14)
+        plt.ylabel('F1 score', fontsize=14)
+        plt.title('Robustness Metric', fontweight='bold', fontsize=16)
+        plt.legend(loc='lower left', fontsize=12)
+        plt.grid(True, linestyle='--', alpha=0.7)
+        
+        plt.xlim(min(thresholds), max(thresholds))
+        plt.ylim(0, 1.01)
+        
+        plt.gca().spines['top'].set_visible(False)
+        plt.gca().spines['right'].set_visible(False)
+        
+        plt.tick_params(axis='both', which='major', labelsize=12)
+        
+        plt.tight_layout()
+        
+        output_dir = os.path.dirname(ref_file)
+        output_filename = f"robustness_plot_{os.path.basename(est_file).split('.')[0]}.png"
+        output_path = os.path.join(output_dir, output_filename)
+        plt.show()
+        plt.savefig(output_path, dpi=300, bbox_inches='tight')
+        print(f"Plot saved to: {output_path}")
+        
+        plt.close()
         

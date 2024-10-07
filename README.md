@@ -9,8 +9,16 @@ The `eval_robustness.py` calculates translational and rotation robustness metric
 
 Add your process trajectory into `config.conf`
 
+The input reference and estimated trajectories must follow the TUM data format. For more information on this format, please refer to the [evo documentation](https://github.com/MichaelGrupp/evo/wiki/Formats).
+
 #### Usage
 ```bash
 python3 eval_robustness.py 
+```
+
+To run the script and generate plots:
+```bash
+python3 eval_robustness.py --plot
+```
 
 
