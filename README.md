@@ -41,7 +41,7 @@ timestamp tx ty tz qx qy qz qw
 ```
 For more details on the format, see the [evo documentation](https://github.com/MichaelGrupp/evo/wiki/Formats).
 
-## Citation
+## Reference
 
 If you use this metrics in your research, consider cite our paper:
 ```
