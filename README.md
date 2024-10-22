@@ -27,10 +27,10 @@ trajectory_pairs = [
 2. Run the evaluation:
 ```bash
 # Basic evaluation
-python3 eval_robustness.py --config /path/to/config.conf
+python3 eval_robustness.py --config ./config.conf
 
 # With visualization plots
-python3 eval_robustness.py --config /path/to/config.conf --plot
+python3 eval_robustness.py --config ./config.conf --plot
 ```
 
 ## Input Format
