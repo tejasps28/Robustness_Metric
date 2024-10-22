@@ -23,8 +23,10 @@ import numpy as np
 
 print(f"Current working directory: {os.getcwd()}")
 
-def load_config():
-    return ConfigFactory.parse_file('config.conf')
+def load_config(config_path):
+    if not os.path.exists(config_path):
+        raise FileNotFoundError(f"Config file not found at: {config_path}")
+    return ConfigFactory.parse_file(config_path)
 
 def format_results(auc_result):
     result = "-------------\n"
@@ -83,11 +85,11 @@ def process_trajectory_pair(ref_file, est_file, config):
 
     return fscore_trans, fscore_rot, auc_result
 
-
-def main(plot_mode):
+def main(config_path, plot_mode):
     print(f"Current working directory: {os.getcwd()}")
+    print(f"Using config file: {config_path}")
     
-    config = load_config()
+    config = load_config(config_path)
     trajectory_pairs = config.get_list('trajectory_pairs')
     
     for i, pair in enumerate(trajectory_pairs):
@@ -115,6 +117,7 @@ def main(plot_mode):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Trajectory Robustness Analysis")
+    parser.add_argument("--config", type=str, required=True, help="Path to the configuration file")
     parser.add_argument("--plot", action="store_true", help="Enable plotting of robustness metrics")
     args = parser.parse_args()
-    main(plot_mode=args.plot)
+    main(config_path=args.config, plot_mode=args.plot)
