@@ -18,8 +18,8 @@ parameters {
 
 trajectory_pairs = [
     {
-        reference = "/path/to/reference.tum"
-        estimated = "/path/to/estimated.tum"
+        reference = "/path/to/reference.txt"
+        estimated = "/path/to/estimated.txt"
     }
 ]
 ```
