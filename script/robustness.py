@@ -14,13 +14,13 @@ from evo.core.result import Result
 class RobustnessMetric:
     def calc_fscore(trans_deriv1, rot_deriv1, trans_deriv2, rot_deriv2, trans_threshold, rot_threshold):
         """
-        Calculate the F-score for velocity and angular velocity .
+        Calculate the F-score for RPE and angular RPE .
 
         Parameters:
-        trans_deriv1 (list of torch.Tensor): estimate velocity.
-        rot_deriv1 (list of torch.Tensor): estimated angular velocity.
-        trans_deriv2 (list of torch.Tensor): GT velocity.
-        rot_deriv2 (list of torch.Tensor): GT angular velocity.
+        trans_deriv1 (list of torch.Tensor): estimate RPE.
+        rot_deriv1 (list of torch.Tensor): estimated angular RPE.
+        trans_deriv2 (list of torch.Tensor): GT RPE.
+        rot_deriv2 (list of torch.Tensor): GT angular RPE.
         trans_threshold (float)
         rot_threshold (float)
         Returns:
@@ -63,13 +63,13 @@ class RobustnessMetric:
     
     def calc_fscore(rpe_trans, rpe_rots, full_len, trans_threshold, rot_threshold):
         """
-        Calculate the F-score for velocity and angular velocity .
+        Calculate the F-score for RPE and angular RPE .
 
         Parameters:
-        trans_deriv1 (list of torch.Tensor): estimate velocity.
-        rot_deriv1 (list of torch.Tensor): estimated angular velocity.
-        trans_deriv2 (list of torch.Tensor): GT velocity.
-        rot_deriv2 (list of torch.Tensor): GT angular velocity.
+        trans_deriv1 (list of torch.Tensor): estimate RPE.
+        rot_deriv1 (list of torch.Tensor): estimated angular RPE.
+        trans_deriv2 (list of torch.Tensor): GT RPE.
+        rot_deriv2 (list of torch.Tensor): GT angular RPE.
         trans_threshold (float)
         rot_threshold (float)
         Returns:
@@ -137,52 +137,6 @@ class RobustnessMetric:
             'fscore_area_trans': fscore_area_trans,
             'fscore_area_rot': fscore_area_rot
     }
-    
-    # def eval_robustness_batch(trans_deriv1, rot_deriv1, trans_deriv2, rot_deriv2, 
-    #                           threshold_start, threshold_end, threshold_interval):
-    #     """
-    #     Evaluate robustness by calculating F-scores and AUC for a range of thresholds.
-
-    #     Parameters:
-    #     trans_deriv1 (list of torch.Tensor): Estimated velocity.
-    #     rot_deriv1 (list of torch.Tensor): Estimated angular velocity.
-    #     trans_deriv2 (list of torch.Tensor): Ground truth velocity.
-    #     rot_deriv2 (list of torch.Tensor): Ground truth angular velocity.
-    #     threshold_start (float): Starting threshold value.
-    #     threshold_end (float): Ending threshold value.
-    #     threshold_interval (float): Interval between thresholds.
-
-    #     Returns:
-    #     dict: Dictionary containing the F-scores and areas under the F-score curve for translational and rotational derivatives.
-    #     """
-    #     fscore_area_trans = 0.0
-    #     fscore_area_rot = 0.0
-    #     fscore_transes = []
-    #     fscore_rots = []
-    #     thresholds = []
-    #     num = 0
-        
-    #     threshold = threshold_start
-    #     while threshold <= threshold_end:
-    #         scale_threshold = torch.exp(torch.tensor(-10.0 * threshold))
-    #         fscore_trans, fscore_rot = RobustnessMetric.calc_fscore(
-    #             trans_deriv1, rot_deriv1, trans_deriv2, rot_deriv2, threshold, threshold)
-    #         x_axis_len = torch.exp(torch.tensor(-10.0 * (threshold - threshold_interval * 0.5))) - torch.exp(torch.tensor(-10.0 * (threshold + threshold_interval * 0.5)))
-    #         fscore_area_trans += fscore_trans * x_axis_len
-    #         fscore_area_rot += fscore_rot * x_axis_len
-    #         fscore_transes.append(fscore_trans)
-    #         fscore_rots.append(fscore_rot)
-    #         thresholds.append(threshold)
-    #         num += 1
-    #         threshold += threshold_interval
-
-    #     return {
-    #         'fscore_transes': fscore_transes,
-    #         'fscore_rots': fscore_rots,
-    #         'thresholds': thresholds,
-    #         'fscore_area_trans': fscore_area_trans,
-    #         'fscore_area_rot': fscore_area_rot
-    #     }
 
     def save_results(ref_file, est_file, fscore_trans, fscore_rot, auc_result):
         est_dir = os.path.dirname(est_file)
