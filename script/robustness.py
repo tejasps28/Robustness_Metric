@@ -14,13 +14,13 @@ from evo.core.result import Result
 class RobustnessMetric:
     def calc_fscore(trans_deriv1, rot_deriv1, trans_deriv2, rot_deriv2, trans_threshold, rot_threshold):
         """
-        Calculate the F-score for RPE and angular RPE .
+        Calculate the F-score for using velocity and angular velocity pair
 
         Parameters:
-        trans_deriv1 (list of torch.Tensor): estimate RPE.
-        rot_deriv1 (list of torch.Tensor): estimated angular RPE.
-        trans_deriv2 (list of torch.Tensor): GT RPE.
-        rot_deriv2 (list of torch.Tensor): GT angular RPE.
+        trans_deriv1 (list of torch.Tensor): estimate translational derivatives
+        rot_deriv1 (list of torch.Tensor): estimated angular 
+        trans_deriv2 (list of torch.Tensor): GT translational derivatives
+        rot_deriv2 (list of torch.Tensor): GT angular 
         trans_threshold (float)
         rot_threshold (float)
         Returns:
@@ -63,17 +63,16 @@ class RobustnessMetric:
     
     def calc_fscore(rpe_trans, rpe_rots, full_len, trans_threshold, rot_threshold):
         """
-        Calculate the F-score for RPE and angular RPE .
+        Calculate the F-score for RPE and angular RPE 
 
         Parameters:
-        trans_deriv1 (list of torch.Tensor): estimate RPE.
-        rot_deriv1 (list of torch.Tensor): estimated angular RPE.
-        trans_deriv2 (list of torch.Tensor): GT RPE.
-        rot_deriv2 (list of torch.Tensor): GT angular RPE.
+        rpe_trans: translational RPE
+        rpe_rots: rotational RPE
+        full_len: Complete length of GT
         trans_threshold (float)
         rot_threshold (float)
         Returns:
-        tuple: F-score for translational derivatives and F-score for rotational derivatives.
+        tuple: F-score for translation and rotational 
         """
         trans_num = 0
         rot_num = 0
