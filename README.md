@@ -2,9 +2,8 @@
 
 This project evaluates the robustness of trajectories by comparing them using Robustness Metrics based on [paper](https://arxiv.org/pdf/2307.07607). Traditional ATE and RPE primarily focus on the accuracy of trajectory and does not consider the completeness of trajectory (recall). To address these gaps, we introduce Robustness Metric based on estimated RPE that consider both precision and completeness.
 
-https://github.com/user-attachments/assets/70e52b50-3a5a-4fec-955b-8e2c80cb6fee
 
-
+https://github.com/user-attachments/assets/62a3ebe4-3803-4928-a466-960d7e808f66
 
 ## Quick Start
 
