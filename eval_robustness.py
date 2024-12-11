@@ -15,7 +15,6 @@ from robustness import RobustnessMetric
 from pyhocon import ConfigFactory
 import matplotlib.pyplot as plt
 import torch
-import RobustMetricLib 
 from scipy.spatial.transform import Rotation
 from evo.core.metrics import PoseRelation
 import evo.main_rpe as main_rpe
