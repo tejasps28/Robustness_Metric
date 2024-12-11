@@ -5,6 +5,10 @@ This project evaluates the robustness of trajectories by comparing them using Ro
 
 https://github.com/user-attachments/assets/62a3ebe4-3803-4928-a466-960d7e808f66
 
+## Prerequisites
+
+evo package  (refer [here](https://github.com/MichaelGrupp/evo) for installation)
+
 ## Quick Start
 
 1. Configure your trajectory pairs in `config.conf`:
