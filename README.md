@@ -13,21 +13,17 @@ evo package  (refer [here](https://github.com/MichaelGrupp/evo) for installation
 
 1. Configure your trajectory pairs in `config.conf`:
 ```hocon
-parameters {
-    max_diff = 0.01           # Maximum time difference for trajectory association
-    trans_threshold = 0.1     # Translation threshold (meters)
-    rot_threshold = 0.1       # Rotation threshold (radians)
-    threshold_start = 0.01    # Starting threshold for AUC calculation
-    threshold_end = 0.5       # Ending threshold for AUC calculation
-    threshold_interval = 0.01 # Interval between thresholds
-}
-
 trajectory_pairs = [
     {
         reference = "/path/to/reference.txt"
         estimated = "/path/to/estimated.txt"
     }
 ]
+
+parameters {
+  threshold_start = 0.05 # Starting threshold for AUC calculation
+  threshold_end = 1 # Ending threshold for AUC calculation
+}
 ```
 
 2. Run the evaluation:

@@ -45,12 +45,12 @@ def format_results(auc_result):
     return result
 
 def process_trajectory_pair(ref_file, est_file, config):
-    max_diff = config.get_float('parameters.max_diff')
-    trans_threshold = config.get_float('parameters.trans_threshold')
-    rot_threshold = config.get_float('parameters.rot_threshold')
+    max_diff = 0.2
+    trans_threshold = 0.1
+    rot_threshold = 0.1
     threshold_start = config.get_float('parameters.threshold_start')
     threshold_end = config.get_float('parameters.threshold_end')
-    threshold_interval = config.get_float('parameters.threshold_interval')
+    threshold_interval = threshold_start * 2
 
     traj_ref = file_interface.read_tum_trajectory_file(ref_file)
     full_len = len(traj_ref.positions_xyz)
