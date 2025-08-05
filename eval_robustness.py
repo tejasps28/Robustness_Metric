@@ -20,22 +20,18 @@ from evo.core.metrics import PoseRelation
 import evo.main_rpe as main_rpe
 import numpy as np
 
-#For frequency based handling
 from scipy.interpolate import interp1d
 from scipy.spatial.transform import Rotation, Slerp
 from evo.core.trajectory import PosePath3D
 import numpy as np
-#For frequency based handling
+
 
 
 print(f"Current working directory: {os.getcwd()}")
 
 def resample_ground_truth(traj_ref, target_timestamps):
-    """
-    Linearly interpolate positions and SLERP‐interpolate orientations
-    of traj_ref onto target_timestamps.
-    """
-    # --- positions ---
+   
+    
     t_ref = np.array(traj_ref.timestamps)              
     pts   = np.array(traj_ref.positions_xyz)           
     fx = interp1d(t_ref, pts[:,0], kind='linear', fill_value='extrapolate')
@@ -44,7 +40,7 @@ def resample_ground_truth(traj_ref, target_timestamps):
     t_tgt = np.array(target_timestamps)                
     new_pts = np.vstack((fx(t_tgt), fy(t_tgt), fz(t_tgt))).T  
 
-    # --- orientations via SLERP ---
+    
     quats = np.array(traj_ref.orientations_quat)       
     rot_seq = Rotation.from_quat(quats)
     slerp   = Slerp(t_ref, rot_seq)
